@@ -8,44 +8,15 @@ import * as bcrypt from 'bcryptjs';
 export class UsersService {
 
     constructor(@InjectModel(User.name) private UserModel: Model<IUser>) { }
-
     async createUser(user: IUser) {
-        let response;
         let passwordHash = await bcrypt.hash(user.password, 8)
         user.password = passwordHash;
         const newUserInstance = new this.UserModel(user);
-        await newUserInstance.save()
-            .then(
-                (doc) => {
-                    response = doc[0]
-                    return response;
-                }
-            )
-            .catch(
-                (error) => {
-                    response = error;
-                    return response;
-                }
-            )
-        return response;
+        return await newUserInstance.save()
     }
 
     async fetchUserByEmail(email: string) {
-        let response;
-        await this.UserModel.find({ email: email })
-            .then(
-                (doc) => {
-                    response = doc[0]
-                    return response;
-                }
-            )
-            .catch(
-                (error) => {
-                    response = error;
-                    return response;
-                }
-            )
-        return response;
+        return await this.UserModel.find({ email: email })
     }
 
     async validatePassword(credentials: IUser) {

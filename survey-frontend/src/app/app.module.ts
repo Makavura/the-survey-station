@@ -12,6 +12,7 @@ import { AdminComponent } from './admin/admin.component';
 import { SurveysService } from './services/surveys.service';
 import { AuthService } from './services/auth.service';
 import { SurveysComponent } from './surveys/surveys.component';
+import { FormlyModule } from '@ngx-formly/core';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SurveysComponent } from './surveys/surveys.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    FormlyModule.forRoot({ extras: { lazyRender: true } }),
   ],
   providers: [
     SurveysService,
