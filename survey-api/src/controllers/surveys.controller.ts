@@ -21,8 +21,8 @@ export class SurveysController {
     }
 
     @Get(':id')
-    async fetchSurvey(@Param() id: string){
-        return await this.surveysService.fetchSurveyById(id)
+    async fetchSurvey(@Param() params){
+        return await this.surveysService.fetchSurveyById(params?.id)
     }
 
     @Post('response')

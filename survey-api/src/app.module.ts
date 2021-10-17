@@ -11,6 +11,9 @@ import { SurveysService } from './services/surveys.service';
 import { UsersService } from './services/users.service';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { join } from 'path';
+import { UsersController } from './controllers/users.controller';
+import { AuthController } from './controllers/auth.controller';
+import { AuthService } from './services/auth.service';
 @Module({
   imports: [
     ConfigModule.forRoot(
@@ -35,10 +38,12 @@ import { join } from 'path';
         }
       ]
     ),
+    PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async () => ({
         secret: process.env.JWT_SECRET,
+        signOptions: { expiresIn: '1800s'}
       }),
       inject: [ConfigService],
     }),
@@ -48,9 +53,12 @@ import { join } from 'path';
     }),
   ],
   controllers: [
-    SurveysController
+    SurveysController,
+    UsersController,  
+    AuthController
   ],
   providers: [
+    AuthService,
     SurveysService,
     UsersService,
     JwtStrategy
