@@ -95,6 +95,7 @@ export class AdminComponent implements OnInit {
     return this.surveysService
       .fetchAllSurveys().subscribe((surveys) => {
         this.surveys = surveys;
+        console.log(this.surveys)
         return this.surveys
       }, (err) => { console.warn(err) });
   }
