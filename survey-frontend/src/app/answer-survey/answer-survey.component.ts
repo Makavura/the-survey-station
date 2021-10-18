@@ -62,7 +62,23 @@ export class AnswerSurveyComponent implements OnInit {
   }
 
   onSubmitSurvey(){ 
-    this.activeSurvey["responses"] = this.activeSurvey["responses"].concat(this.form.value);
+    let response = {
+      responses: []
+    }
+    Object.keys(this.form.value).forEach((key) => {
+      if(!['name', 'phone', 'email'].some(_key => key.includes(_key))){
+        let _  = {
+          option: key,
+          response: this.form.value[`${key}`]
+        }
+        delete this.form.value[`${key}`]
+        //@ts-ignore
+        response['responses'].push(_)
+      }
+    })
+    //@ts-ignore
+    response["contact"] = this.form.value
+    this.activeSurvey["responses"] = this.activeSurvey["responses"].concat(response);
     this.surveysService.respondToSurvey(this.activeSurvey).subscribe((response) => {
       this.form.reset()
     }, (error) => console.warn(error));
