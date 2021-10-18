@@ -35,9 +35,9 @@ export class AuthService {
 
   getAuthStatus(): boolean {
     let access_token: any = localStorage.getItem("access_token");
+    if(localStorage.getItem("access_token") == null) return false;
     let decodedJwt:any = jwt_decode(access_token)
-    if(!localStorage.getItem("access_token")) return false;
-    return !moment().isBefore(decodedJwt["exp"]);
+    return moment(decodedJwt["iat"]).isBefore(decodedJwt["exp"]);
   }
 
 }

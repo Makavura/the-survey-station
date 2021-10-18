@@ -28,18 +28,16 @@ export class LoginComponent implements OnInit {
 //@ts-ignore
   ngOnInit() {
     if(this.authService.getAuthStatus()){
-      return this.router.navigate(['/admin']);
+      return this.router.navigate(['admin']);
     }
   }
 
   login() {
     const val = this.form.value;
     if (val.email && val.password) {
-      this.authService.login(val.email, val.password).subscribe(
-        () => {
-          console.log("1234...")
-          return this.router.navigate(['/admin']);
-        })
+      this.authService.login(val.email, val.password).subscribe((x) => {
+        return this.router.navigate(['admin']);
+      })
     }
   }
 
