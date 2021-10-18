@@ -23,6 +23,6 @@ export class SurveysService {
     async answerSurvey(surveyAnswer: ISurvey) {
         const surveyId = surveyAnswer["_id"];
         delete surveyAnswer["_id"];
-        return this.SurveyModel.findByIdAndUpdate({ surveyId }, surveyAnswer, { upsert: false })
+        return this.SurveyModel.findByIdAndUpdate({ _id: surveyId }, surveyAnswer, { upsert: false })
     }
 }

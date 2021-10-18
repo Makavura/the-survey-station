@@ -40,7 +40,6 @@ export class AnswerSurveyComponent implements OnInit {
     return this.surveysService
       .fetchAllSurveys().subscribe((surveys) => {
         this.surveys = surveys;
-        console.log(this.surveys)
         return this.surveys
       }, (err) => { console.warn(err) });
   }
@@ -63,10 +62,9 @@ export class AnswerSurveyComponent implements OnInit {
   }
 
   onSubmitSurvey(){ 
-    console.log(this.form.value)
-    console.log(Object.keys(this.form.value))
-    Object.keys(this.form.value).forEach((key) => {
-
-    })
-  }
+    this.activeSurvey["responses"] = this.activeSurvey["responses"].concat(this.form.value);
+    this.surveysService.respondToSurvey(this.activeSurvey).subscribe((response) => {
+      this.form.reset()
+    }, (error) => console.warn(error));
+  };
 }
