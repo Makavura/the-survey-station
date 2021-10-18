@@ -13,6 +13,8 @@ import { SurveysService } from './services/surveys.service';
 import { AuthService } from './services/auth.service';
 import { SurveysComponent } from './surveys/surveys.component';
 import { FormlyModule } from '@ngx-formly/core';
+import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
+import { HttpJWTInterceptor } from './http.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,10 +32,16 @@ import { FormlyModule } from '@ngx-formly/core';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     FormlyModule.forRoot({ extras: { lazyRender: true } }),
+    FormlyBootstrapModule,
   ],
   providers: [
     SurveysService,
-    AuthService
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS, 
+      useClass: HttpJWTInterceptor, 
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

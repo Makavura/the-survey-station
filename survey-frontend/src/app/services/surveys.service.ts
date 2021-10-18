@@ -31,4 +31,6 @@ export class SurveysService {
 export interface ISurvey {
   _id?: string;
   title: string;
+  questions: any[];
+  responses: any[];
 }
