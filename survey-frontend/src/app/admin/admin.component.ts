@@ -9,6 +9,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { AuthService } from '../services/auth.service';
 //@ts-ignore
 import { uid } from 'uid';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -33,7 +34,8 @@ export class AdminComponent implements OnInit {
   constructor(
     private surveysService: SurveysService,
     private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     this.isAdmin = this.authService.getAuthStatus();
     this.surveyForm = this.fb.group({
@@ -140,4 +142,8 @@ export class AdminComponent implements OnInit {
     return this.surveyTitle && this.surveyTitleSet;
   }
 
+  logOut(){
+    this.authService.logout();
+    return this.router.navigate(['/']);
+  }
 }
