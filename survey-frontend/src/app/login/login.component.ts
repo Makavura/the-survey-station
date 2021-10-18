@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
   }
 //@ts-ignore
   ngOnInit() {
-    console.log(this.authService.getAuthStatus())
     if(this.authService.getAuthStatus()){
       return this.router.navigate(['admin']);
     }

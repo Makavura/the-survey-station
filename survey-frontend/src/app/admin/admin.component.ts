@@ -5,8 +5,9 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import {FormlyFieldConfig} from '@ngx-formly/core';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 import { AuthService } from '../services/auth.service';
+//@ts-ignore
 import { uid } from 'uid';
 @Component({
   selector: 'app-admin',
@@ -19,7 +20,7 @@ export class AdminComponent implements OnInit {
   fields: FormlyFieldConfig[] = [
 
   ];
-  surveys = [];
+  surveys: any = [];
   showCanvas!: boolean;
   isAdmin!: boolean;
   surveyForm: FormGroup;
@@ -33,26 +34,25 @@ export class AdminComponent implements OnInit {
     private surveysService: SurveysService,
     private authService: AuthService,
     private fb: FormBuilder
-  ) {  
-      this.isAdmin = this.authService.getAuthStatus();
-      this.surveyForm = this.fb.group({
-        title: ['']
-      });
-      this.questionsCanvasForm = this.fb.group({
-        question: [''],
-        description: [''],
-        label1: [''],
-        label2: [''],
-      })
-    }
+  ) {
+    this.isAdmin = this.authService.getAuthStatus();
+    this.surveyForm = this.fb.group({
+      title: ['']
+    });
+    this.questionsCanvasForm = this.fb.group({
+      question: [''],
+      description: [''],
+      label1: [''],
+      label2: [''],
+    })
+  }
 
-  ngOnInit(): void { 
-    console.log(this.authService.getAuthStatus())
+  ngOnInit(): void {
     this.showCanvas = false;
     this.loadSurveys();
   }
 
-  addQuestion(){
+  addQuestion() {
     let questionId = uid(32)
     let question = {
       id: questionId,
@@ -79,34 +79,32 @@ export class AdminComponent implements OnInit {
     return this.fields;
   }
 
-  createSurvey(survey: ISurvey){
+  createSurvey(survey: ISurvey) {
+    console.log(survey)
     this.surveysService.createSurvey(survey).subscribe(
       (res) => {
         console.log(res)
-      }, 
+      },
       (err) => {
         console.warn(err)
       }
     );
   }
 
-  loadSurveys(){
-    this.surveysService.fetchAllSurveys().subscribe(
-      (response) => {
-      console.log(response)     
-      },
-      (error) => {
-        console.warn(error)
-      }
-    )
+  loadSurveys() {
+    return this.surveysService
+      .fetchAllSurveys().subscribe((surveys) => {
+        this.surveys = surveys;
+        return this.surveys
+      }, (err) => { console.warn(err) });
   }
 
-  toggleCanvasDisplay(event: any){
+  toggleCanvasDisplay(event: any) {
     return this.showCanvas ? this.showCanvas = false : this.showCanvas = true
   }
 
   onSubmitSurvey() {
-    if(this.form.valid) {
+    if (this.form.valid) {
       let surveyFields: any[] = [];
       this.fields.forEach((field: any, index: number) => {
         let _ = {
@@ -117,7 +115,7 @@ export class AdminComponent implements OnInit {
             label: field["templateOptions"]["label"],
             description: field["templateOptions"]["description"],
             options: field["templateOptions"]["options"]
-          } 
+          }
         };
         surveyFields = surveyFields.concat(_);
         return surveyFields;
@@ -126,7 +124,7 @@ export class AdminComponent implements OnInit {
       const survey: ISurvey = {
         title: this.surveyTitle,
         questions: surveyFields,
-        responses: [] 
+        responses: []
       }
 
       console.log(survey);
@@ -134,7 +132,7 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  onSubmitSurveyTitle(){
+  onSubmitSurveyTitle() {
     console.log(this.surveyForm.value["title"])
     this.surveyTitleSet = true;
     this.surveyTitle = this.surveyForm.value["title"]

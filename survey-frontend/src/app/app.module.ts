@@ -13,6 +13,7 @@ import { SurveysService } from './services/surveys.service';
 import { AuthService } from './services/auth.service';
 import { SurveysComponent } from './surveys/surveys.component';
 import { FormlyModule } from '@ngx-formly/core';
+//@ts-ignore
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { HttpJWTInterceptor } from './http.interceptor';
 
