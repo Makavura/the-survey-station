@@ -47,6 +47,7 @@ export class AdminComponent implements OnInit {
     }
 
   ngOnInit(): void { 
+    console.log(this.authService.getAuthStatus())
     this.showCanvas = false;
     this.loadSurveys();
   }
