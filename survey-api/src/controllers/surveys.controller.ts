@@ -51,8 +51,16 @@ export class SurveysController {
     }
 
     @Post('response')
-    async respondToSurvey(@Body() surveyResponse: ISurvey) {
-        return await this.surveysService.answerSurvey(surveyResponse)
+    async respondToSurvey(@Body() surveyResponse: ISurvey, @Res() res: Response) {
+         await this.surveysService.answerSurvey(surveyResponse).then((doc) => {
+            return res
+                .json(doc)
+                .status(HttpStatus.CONTINUE)
+        }).catch((err) => {
+            return res
+                .json(err)
+                .status(HttpStatus.NOT_FOUND)
+        })
     }
 
 }

@@ -16,6 +16,7 @@ import { FormlyModule } from '@ngx-formly/core';
 //@ts-ignore
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { HttpJWTInterceptor } from './http.interceptor';
+import { AnswerSurveyComponent } from './answer-survey/answer-survey.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HttpJWTInterceptor } from './http.interceptor';
     LandingComponent,
     LoginComponent,
     AdminComponent,
-    SurveysComponent
+    SurveysComponent,
+    AnswerSurveyComponent
   ],
   imports: [
     BrowserModule,
