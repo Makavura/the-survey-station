@@ -48,7 +48,7 @@ import { AuthService } from './services/auth.service';
       inject: [ConfigService],
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'survey-frontend/dist/survey-frontend'),
+      rootPath: join(__dirname, '../../','survey-frontend/dist/survey-frontend'),
       exclude: ['/api*'],
     }),
   ],
