@@ -30,7 +30,9 @@ export class AdminComponent implements OnInit {
   questionsForm = new FormGroup({});
   questionsFields: FormlyFieldConfig[] = []
   questionsCanvasForm: FormGroup;
-
+  activeSurveyId!: any;
+  activeSurvey!: any;
+  viewingSurveyReport!: boolean;
   constructor(
     private surveysService: SurveysService,
     private authService: AuthService,
@@ -85,6 +87,7 @@ export class AdminComponent implements OnInit {
     console.log(survey)
     this.surveysService.createSurvey(survey).subscribe(
       (res) => {
+        return this.router.navigate(['/admin']);
         console.log(res)
       },
       (err) => {
@@ -97,7 +100,6 @@ export class AdminComponent implements OnInit {
     return this.surveysService
       .fetchAllSurveys().subscribe((surveys) => {
         this.surveys = surveys;
-        console.log(this.surveys)
         return this.surveys
       }, (err) => { console.warn(err) });
   }
@@ -129,14 +131,11 @@ export class AdminComponent implements OnInit {
         questions: surveyFields,
         responses: []
       }
-
-      console.log(survey);
       this.createSurvey(survey)
     }
   }
 
   onSubmitSurveyTitle() {
-    console.log(this.surveyForm.value["title"])
     this.surveyTitleSet = true;
     this.surveyTitle = this.surveyForm.value["title"]
     return this.surveyTitle && this.surveyTitleSet;
@@ -145,5 +144,22 @@ export class AdminComponent implements OnInit {
   logOut(){
     this.authService.logout();
     return this.router.navigate(['/']);
+  }
+
+  respondToSurvey(surveyId: any) {
+    this.activeSurveyId = surveyId;
+    this.surveys.forEach((survey: any) => {
+      if (survey["_id"] == surveyId) {
+        this.activeSurvey = survey
+        this.fields = this.activeSurvey["questions"]
+        this.viewingSurveyReport = true;
+        this.activeSurvey && this.viewingSurveyReport;
+      }
+    });
+  }
+
+  backToSurveys(){
+    this.viewingSurveyReport = false;
+    return this.viewingSurveyReport;
   }
 }
