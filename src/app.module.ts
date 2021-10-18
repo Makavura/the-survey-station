@@ -47,10 +47,10 @@ import { AuthService } from './services/auth.service';
       }),
       inject: [ConfigService],
     }),
-    ServeStaticModule.forRoot({
+/*     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../../','survey-frontend/dist/survey-frontend'),
       exclude: ['/api*'],
-    }),
+    }), */
   ],
   controllers: [
     SurveysController,
