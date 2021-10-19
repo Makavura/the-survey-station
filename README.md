@@ -1,4 +1,9 @@
-# SurveyApi
+# Survey API
+git clone 
+
+## ENV Configs
+JWT_SECRET
+MONGODB_URL
 
 ## Installation
 
@@ -18,3 +23,9 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+
+# Frontend
+https://github.com/Makavura/the-survey-station-fe
+
+# Deployed URL
+https://rgsdfgdfgsdfgdfhdhe3423.web.app/
