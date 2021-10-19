@@ -1,28 +1,22 @@
-# Survey API
-git clone 
+# Survey REST API
+git clone git@github.com:Makavura/the-survey-station.git
 
-## ENV Configs
-JWT_SECRET
-MONGODB_URL
+## Set ENV Configs in .env
+- JWT_SECRET
+- MONGODB_URL
 
 ## Installation
 
-```bash
-$ npm install
-```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
+- cd the-survey-station 
+- npm install
+- npm run start
 
 # watch mode
-$ npm run start:dev
+- npm run start:dev
 
 # production mode
-$ npm run start:prod
-```
+- npm run start:prod
+
 
 # Frontend
 https://github.com/Makavura/the-survey-station-fe
